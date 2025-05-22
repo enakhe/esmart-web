@@ -11,19 +11,21 @@ interface LoginCardProps {
 const LoginCard: React.FC<LoginCardProps> = ({ onSubmit, isLoading }) => {
   return (
     <div className="w-full max-w-md bg-white rounded-lg shadow-soft animate-fadeIn">
-      <div className="text-center mb-6">
-        <Logo className="mx-auto mb-4" />
-        <h1 className="text-xl font-medium text-gray-800">
-          Login to start your session
-        </h1>
-      </div>
+      <div className="p-8">
+        <div className="text-center mb-6">
+          <Logo className="mx-auto mb-4" />
+          <h1 className="text-xl font-medium text-gray-800">
+            Login to start your session
+          </h1>
+        </div>
 
-      <LoginForm onSubmit={onSubmit} isLoading={isLoading} />
+        <LoginForm onSubmit={onSubmit} isLoading={isLoading} />
 
-      <div className="mt-6 text-center text-xs text-gray-500">
-        <p>
-          Powered by HotelMS: Online Hotel Management Software
-        </p>
+        <div className="mt-6 text-center text-xs text-gray-500">
+          <p>
+            Powered by HotelMS: Online Hotel Management Software
+          </p>
+        </div>
       </div>
     </div>
   );
