@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
-import { Eye, EyeOff, Mail, Lock, Google, Microsoft } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Globe, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LoginFormProps {
@@ -131,7 +131,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) =>
           variant="outline"
           className="flex items-center justify-center gap-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
         >
-          <Google size={18} />
+          <Globe size={18} />
           <span>with Google</span>
         </Button>
         
@@ -140,7 +140,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) =>
           variant="outline"
           className="flex items-center justify-center gap-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
         >
-          <Microsoft size={18} />
+          <MessageSquare size={18} />
           <span>with Microsoft</span>
         </Button>
       </div>

@@ -34,8 +34,10 @@ const LoginCarousel = () => {
   
   // Auto advance slides
   useEffect(() => {
+    if (!emblaApi) return;
+    
     const interval = setInterval(() => {
-      if (emblaApi) emblaApi.scrollNext();
+      emblaApi.scrollNext();
     }, 5000);
     
     return () => clearInterval(interval);
@@ -50,7 +52,9 @@ const LoginCarousel = () => {
     };
     
     emblaApi.on('select', onSelect);
-    return () => emblaApi.off('select', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
   }, [emblaApi]);
 
   return (
