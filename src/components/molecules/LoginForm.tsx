@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
-import { Eye, EyeOff, Lock, User } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Google, Microsoft } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => void;
@@ -14,6 +15,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) =>
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,38 +43,48 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) =>
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 w-full animate-slideUp">
-      <div className="space-y-2">
+    <form onSubmit={handleSubmit} className="space-y-5 w-full">
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          Email <span className="text-red-500">*</span>
+        </label>
         <div className="relative">
           <Input
             type="email"
-            placeholder="Email Address"
-            label="Email"
+            id="email"
+            placeholder="youremail@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             error={errors.email}
-            className="pl-10"
+            className={cn(
+              "pl-3 h-12 bg-blue-50/30 border border-gray-200 rounded-md shadow-sm",
+              errors.email ? "border-red-500" : "focus:border-primary focus:ring-primary"
+            )}
           />
-          <User className="absolute left-3 top-[38px] transform -translate-y-1/2 text-gray-400 h-5 w-5" />
         </div>
       </div>
       
-      <div className="space-y-2">
+      <div>
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          Password <span className="text-red-500">*</span>
+        </label>
         <div className="relative">
           <Input
             type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            label="Password"
+            id="password"
+            placeholder="••••••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             error={errors.password}
-            className="pl-10"
+            className={cn(
+              "pl-3 h-12 bg-blue-50/30 border border-gray-200 rounded-md shadow-sm",
+              errors.password ? "border-red-500" : "focus:border-primary focus:ring-primary"
+            )}
           />
-          <Lock className="absolute left-3 top-[38px] transform -translate-y-1/2 text-gray-400 h-5 w-5" />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-[38px] transform -translate-y-1/2 text-gray-400"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
@@ -85,21 +97,59 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) =>
             id="remember-me"
             name="remember-me"
             type="checkbox"
-            className="h-4 w-4 text-hotel-primary border-gray-300 rounded focus:ring-hotel-secondary"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+            className="h-4 w-4 text-secondary border-gray-300 rounded focus:ring-primary"
           />
           <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-            Remember me
+            Remember Me
           </label>
         </div>
         
-        <a href="#" className="text-sm font-medium text-hotel-primary hover:text-hotel-secondary">
-          Forgot password?
+        <a href="#" className="text-sm font-medium text-primary hover:text-primary/80">
+          I forgot my password
         </a>
       </div>
       
-      <Button type="submit" fullWidth isLoading={isLoading}>
-        Sign in
+      <Button 
+        type="submit" 
+        fullWidth 
+        isLoading={isLoading}
+        className="bg-secondary hover:bg-secondary/90 text-white py-3 h-12"
+      >
+        Login
       </Button>
+
+      <div className="relative flex items-center justify-center mt-6">
+        <div className="border-t border-gray-200 absolute w-full"></div>
+        <span className="bg-white px-4 text-sm text-gray-500 relative">OR SIGN IN</span>
+      </div>
+      
+      <div className="grid grid-cols-2 gap-4">
+        <Button
+          type="button"
+          variant="outline"
+          className="flex items-center justify-center gap-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+        >
+          <Google size={18} />
+          <span>with Google</span>
+        </Button>
+        
+        <Button
+          type="button"
+          variant="outline"
+          className="flex items-center justify-center gap-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+        >
+          <Microsoft size={18} />
+          <span>with Microsoft</span>
+        </Button>
+      </div>
+      
+      <div className="text-center">
+        <a href="#" className="text-sm text-primary hover:underline">
+          Create new account
+        </a>
+      </div>
     </form>
   );
 };

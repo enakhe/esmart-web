@@ -26,11 +26,11 @@ const Login: React.FC = () => {
       const success = await login(email, password);
       
       if (success) {
-        toast.success("Welcome back!");
+        toast.success("Welcome to HotelMS!");
         navigate(AppRoutes.DASHBOARD);
       }
     } catch (error) {
-      toast.error("An error occurred during login");
+      toast.error("Invalid email or password");
       console.error("Login error:", error);
     } finally {
       setIsLoading(false);

@@ -10,25 +10,19 @@ interface LoginCardProps {
 
 const LoginCard: React.FC<LoginCardProps> = ({ onSubmit, isLoading }) => {
   return (
-    <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg animate-fadeIn">
-      <div className="text-center mb-8">
-        <Logo className="mx-auto mb-6" />
-        <h1 className="text-2xl font-serif font-medium text-hotel-primary">
-          Welcome Back
+    <div className="w-full max-w-md bg-white rounded-lg shadow-soft animate-fadeIn">
+      <div className="text-center mb-6">
+        <Logo className="mx-auto mb-4" />
+        <h1 className="text-xl font-medium text-gray-800">
+          Login to start your session
         </h1>
-        <p className="text-gray-500 mt-2">
-          Sign in to access your hotel management dashboard
-        </p>
       </div>
 
       <LoginForm onSubmit={onSubmit} isLoading={isLoading} />
 
-      <div className="mt-6 text-center text-sm">
-        <p className="text-gray-500">
-          Don't have an account?{" "}
-          <a href="#" className="text-hotel-primary font-medium hover:text-hotel-secondary">
-            Contact administrator
-          </a>
+      <div className="mt-6 text-center text-xs text-gray-500">
+        <p>
+          Powered by HotelMS: Online Hotel Management Software
         </p>
       </div>
     </div>
