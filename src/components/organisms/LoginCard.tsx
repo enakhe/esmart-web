@@ -6,9 +6,18 @@ import LoginForm from "../molecules/LoginForm";
 interface LoginCardProps {
   onSubmit: (email: string, password: string) => void;
   isLoading?: boolean;
+  roles?: string[];
+  selectedRole?: string;
+  onRoleChange?: (role: string) => void;
 }
 
-const LoginCard: React.FC<LoginCardProps> = ({ onSubmit, isLoading }) => {
+const LoginCard: React.FC<LoginCardProps> = ({ 
+  onSubmit, 
+  isLoading, 
+  roles,
+  selectedRole,
+  onRoleChange
+}) => {
   return (
     <div className="w-full max-w-md bg-white rounded-lg shadow-soft animate-fadeIn">
       <div className="p-8">
@@ -19,7 +28,13 @@ const LoginCard: React.FC<LoginCardProps> = ({ onSubmit, isLoading }) => {
           </h1>
         </div>
 
-        <LoginForm onSubmit={onSubmit} isLoading={isLoading} />
+        <LoginForm 
+          onSubmit={onSubmit} 
+          isLoading={isLoading}
+          roles={roles}
+          selectedRole={selectedRole}
+          onRoleChange={onRoleChange}
+        />
 
         <div className="mt-6 text-center text-xs text-gray-500">
           <p>

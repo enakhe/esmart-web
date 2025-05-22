@@ -26,12 +26,13 @@ export const authService = {
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     // Mock authentication logic - in real app this would call your API
-    if (credentials.email === "admin@luxestay.com" && credentials.password === "password") {
+    // For this prototype, we'll accept only the specified credentials
+    if (credentials.email === "administrator@localhost" && credentials.password === "Administrator1!") {
       const userData = {
         id: "user-1",
-        name: "Admin User",
+        name: "John Doe",
         email: credentials.email,
-        role: "admin",
+        role: "Administrator",
       };
       
       // Store in localStorage - in real app you'd use more secure methods
@@ -57,7 +58,7 @@ export const authService = {
   logout: () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    window.location.href = "/";
+    window.location.href = "/login";
   },
   
   getCurrentUser: () => {

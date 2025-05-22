@@ -7,8 +7,21 @@ import { toast } from "@/components/ui/sonner";
 import { useAuth } from "@/hooks/useAuth";
 import AppRoutes from "@/constants/appRoutes";
 
+const roles = [
+  "Administrator",
+  "Manager",
+  "Receptionist",
+  "Housekeeping",
+  "Accountant",
+  "Bar",
+  "Restaurant",
+  "StoreKeeper",
+  "Auditor",
+];
+
 const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("Receptionist");
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -26,7 +39,7 @@ const Login: React.FC = () => {
       const success = await login(email, password);
       
       if (success) {
-        toast.success("Welcome to HotelMS!");
+        toast.success(`Welcome to HotelMS! Logged in as ${selectedRole}`);
         navigate(AppRoutes.DASHBOARD);
       }
     } catch (error) {
@@ -39,7 +52,13 @@ const Login: React.FC = () => {
 
   return (
     <AuthLayout>
-      <LoginCard onSubmit={handleLogin} isLoading={isLoading} />
+      <LoginCard 
+        onSubmit={handleLogin} 
+        isLoading={isLoading}
+        roles={roles}
+        selectedRole={selectedRole}
+        onRoleChange={setSelectedRole}
+      />
     </AuthLayout>
   );
 };

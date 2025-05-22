@@ -2,17 +2,33 @@
 import React, { useState } from "react";
 import Input from "../atoms/Input";
 import Button from "../atoms/Button";
-import { Eye, EyeOff, Mail, Lock, Globe, MessageSquare } from "lucide-react";
+import { Eye, EyeOff, Globe, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => void;
   isLoading?: boolean;
+  roles?: string[];
+  selectedRole?: string;
+  onRoleChange?: (role: string) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const LoginForm: React.FC<LoginFormProps> = ({ 
+  onSubmit, 
+  isLoading = false,
+  roles = [],
+  selectedRole = '',
+  onRoleChange = () => {},
+}) => {
+  const [email, setEmail] = useState("administrator@localhost");
+  const [password, setPassword] = useState("Administrator1!");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const [rememberMe, setRememberMe] = useState(false);
@@ -90,6 +106,26 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, isLoading = false }) =>
           </button>
         </div>
       </div>
+
+      {roles.length > 0 && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Role <span className="text-red-500">*</span>
+          </label>
+          <Select value={selectedRole} onValueChange={onRoleChange}>
+            <SelectTrigger className="w-full h-12 bg-blue-50/30 border border-gray-200">
+              <SelectValue placeholder="Select your role" />
+            </SelectTrigger>
+            <SelectContent>
+              {roles.map((role) => (
+                <SelectItem key={role} value={role}>
+                  {role}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
       
       <div className="flex items-center justify-between">
         <div className="flex items-center">

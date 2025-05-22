@@ -36,6 +36,10 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+    
+    /* Custom hotel color palette */
+    --hotel-primary: 222 89% 34%;
+    --hotel-secondary: 144 100% 40%;
   }
 
   .dark {
@@ -118,4 +122,13 @@
   width: 24px;
   border-radius: 12px;
   background-color: #052fab;
+}
+
+/* Custom utility classes */
+.shadow-soft {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-card {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
