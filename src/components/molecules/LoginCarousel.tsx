@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import useEmblaCarousel from 'embla-carousel-react';
 import { cn } from '@/lib/utils';
+import reservation from "@/assets/reservation.png";
+import report from "@/assets/report.png";
+import booking from "@/assets/booking.png";
 
 interface CarouselSlide {
 	title: string;
@@ -13,18 +16,18 @@ interface CarouselSlide {
 const slides: CarouselSlide[] = [
 	{
 		title: "Get detailed reports",
-		image: "https://assets.api.uizard.io/api/cdn/stream/b9e6746e-9753-4d87-8952-92547eef8f55.png",
+		image: report,
 		description: "Analyze hotel performance with comprehensive reporting tools"
 	},
 	{
 		title: "Manage reservations",
-		image: "https://assets.api.uizard.io/api/cdn/stream/87be7d6f-d3a2-4613-96d7-b09968365d79.png",
+		image: reservation,
 		description: "Book and manage guest stays with our intuitive system"
 	},
 	{
-		title: "Control inventory",
-		image: "https://assets.api.uizard.io/api/cdn/stream/167e5081-6511-42e6-9e67-cb6fd71bdac0.png",
-		description: "Track and optimize your hotel inventory efficiently"
+		title: "Manage Booking",
+		image: booking,
+		description: "Streamline your booking process with our user-friendly interface"
 	},
 ];
 
