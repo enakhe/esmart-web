@@ -1,14 +1,37 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import AppRoutes from "@/constants/appRoutes";
+import Login from "./Login";
+
+// This component redirects to login or dashboard based on authentication status
+const Index: React.FC = () => {
+  const { isAuthenticated, isLoading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (isAuthenticated) {
+        navigate(AppRoutes.DASHBOARD);
+      }
+    }
+  }, [isAuthenticated, isLoading, navigate]);
+
+  // If still loading, show a simple loading screen
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-hotel-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-hotel-primary font-medium">Loading...</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  // If not authenticated, render the Login page directly
+  return <Login />;
 };
 
 export default Index;

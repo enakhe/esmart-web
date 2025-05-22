@@ -1,0 +1,47 @@
+
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthLayout from "@/layouts/AuthLayout";
+import LoginCard from "@/components/organisms/LoginCard";
+import { toast } from "@/components/ui/sonner";
+import { useAuth } from "@/hooks/useAuth";
+import AppRoutes from "@/constants/appRoutes";
+
+const Login: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { login, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to dashboard if already authenticated
+    if (isAuthenticated) {
+      navigate(AppRoutes.DASHBOARD);
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleLogin = async (email: string, password: string) => {
+    setIsLoading(true);
+    
+    try {
+      const success = await login(email, password);
+      
+      if (success) {
+        toast.success("Welcome back!");
+        navigate(AppRoutes.DASHBOARD);
+      }
+    } catch (error) {
+      toast.error("An error occurred during login");
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <AuthLayout>
+      <LoginCard onSubmit={handleLogin} isLoading={isLoading} />
+    </AuthLayout>
+  );
+};
+
+export default Login;
