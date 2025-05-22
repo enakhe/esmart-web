@@ -9,7 +9,7 @@ const DashboardLayout: React.FC = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
-    <SidebarProvider collapsedWidth={70}>
+    <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gray-50">
         {/* Sidebar */}
         <Sidebar 

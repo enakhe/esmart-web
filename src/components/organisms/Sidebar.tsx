@@ -33,7 +33,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   mobileSidebarOpen, 
   setMobileSidebarOpen 
 }) => {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
+  const collapsed = state === "collapsed";
   const location = useLocation();
   const { logout } = useAuth();
   
@@ -70,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         className={`bg-hotel-primary fixed top-0 left-0 z-50 h-full transition-all duration-300 shadow-lg 
           ${collapsed ? "w-[70px]" : "w-[240px]"}
           ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
-        collapsible
+        collapsible="icon"
       >
         <div className="flex items-center justify-between px-4 py-5">
           {!collapsed && (
