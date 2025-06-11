@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { 
   Calendar, 
   LogOut, 
@@ -19,6 +18,7 @@ import {
   Tooltip, 
   ResponsiveContainer 
 } from "recharts";
+import AddReservationModal from "@/components/modals/AddReservationModal";
 
 // Mock data
 const mockData = {
@@ -55,6 +55,17 @@ const mockData = {
 };
 
 const Dashboard: React.FC = () => {
+  const [isAddReservationModalOpen, setIsAddReservationModalOpen] = useState(false);
+
+  const handleAddReservation = (reservationData: any) => {
+    console.log("New reservation created:", reservationData);
+    // Here you would typically send this data to your backend
+    setIsAddReservationModalOpen(false);
+    
+    // You could also update the local state to show the new reservation
+    // or refetch the reservations data
+  };
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -216,7 +227,10 @@ const Dashboard: React.FC = () => {
                 </svg>
               </div>
             </div>
-            <button className="flex items-center justify-center px-4 py-2 text-white bg-secondary rounded-md hover:bg-secondary/90">
+            <button 
+              className="flex items-center justify-center px-4 py-2 text-white bg-secondary rounded-md hover:bg-secondary/90"
+              onClick={() => setIsAddReservationModalOpen(true)}
+            >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
@@ -278,6 +292,13 @@ const Dashboard: React.FC = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Add Reservation Modal */}
+      <AddReservationModal
+        isOpen={isAddReservationModalOpen}
+        onClose={() => setIsAddReservationModalOpen(false)}
+        onSubmit={handleAddReservation}
+      />
     </div>
   );
 };
