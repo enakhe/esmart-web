@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { 
   Calendar, 
@@ -6,7 +7,10 @@ import {
   Users, 
   Home,
   Bell,
-  ChevronRight
+  ChevronRight,
+  DollarSign,
+  TrendingUp,
+  Clock
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
@@ -16,7 +20,11 @@ import {
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  ResponsiveContainer 
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  Area,
+  AreaChart
 } from "recharts";
 import AddReservationModal from "@/components/modals/AddReservationModal";
 
@@ -26,6 +34,10 @@ const mockData = {
   checkOuts: 12,
   occupancyRate: 75,
   upcomingReservations: 23,
+  inHouseGuests: 142,
+  revenueToday: 8750,
+  avgStayLength: 2.4,
+  roomServiceOrders: 18,
   rooms: {
     occupied: 50,
     vacant: 15,
@@ -45,6 +57,17 @@ const mockData = {
     { day: "19", revenue: 550, guests: 11 },
     { day: "20", revenue: 700, guests: 14 },
     { day: "21", revenue: 900, guests: 18 },
+  ],
+  checkInTrends: [
+    { time: "06:00", checkIns: 2, avgTime: 8 },
+    { time: "08:00", checkIns: 5, avgTime: 12 },
+    { time: "10:00", checkIns: 8, avgTime: 15 },
+    { time: "12:00", checkIns: 12, avgTime: 18 },
+    { time: "14:00", checkIns: 18, avgTime: 22 },
+    { time: "16:00", checkIns: 25, avgTime: 15 },
+    { time: "18:00", checkIns: 15, avgTime: 12 },
+    { time: "20:00", checkIns: 8, avgTime: 10 },
+    { time: "22:00", checkIns: 3, avgTime: 8 },
   ],
   recentReservations: [
     { id: "#1245", guest: "Marika Venus", room: "2B", date: "Jul 31, 2023" },
@@ -195,7 +218,142 @@ const Dashboard: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* In-house Guests */}
+        <Card className="bg-white border-none shadow-soft">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              In-house Guests
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-semibold text-gray-800">
+              {mockData.inHouseGuests}
+            </div>
+            <p className="text-xs text-green-600 mt-1">↑ 12% from yesterday</p>
+          </CardContent>
+        </Card>
+
+        {/* Revenue Today */}
+        <Card className="bg-white border-none shadow-soft">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+              <DollarSign className="w-4 h-4" />
+              Revenue Today
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-semibold text-gray-800">
+              ${mockData.revenueToday.toLocaleString()}
+            </div>
+            <p className="text-xs text-green-600 mt-1">↑ 8% from yesterday</p>
+          </CardContent>
+        </Card>
+
+        {/* Average Stay Length */}
+        <Card className="bg-white border-none shadow-soft">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              Avg Stay Length
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-semibold text-gray-800">
+              {mockData.avgStayLength} days
+            </div>
+            <p className="text-xs text-blue-600 mt-1">Stable from last week</p>
+          </CardContent>
+        </Card>
+
+        {/* Room Service Orders */}
+        <Card className="bg-white border-none shadow-soft">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+              <Bell className="w-4 h-4" />
+              Room Service Orders
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-semibold text-gray-800">
+              {mockData.roomServiceOrders}
+            </div>
+            <p className="text-xs text-orange-600 mt-1">↑ 5% from yesterday</p>
+          </CardContent>
+        </Card>
       </div>
+
+      {/* Check-in Trends Chart */}
+      <Card className="bg-white border-none shadow-soft">
+        <CardHeader>
+          <CardTitle className="text-lg font-medium text-gray-800 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5" />
+            Check-in Trends & Processing Time
+          </CardTitle>
+          <p className="text-sm text-gray-500">Today's hourly check-in volume and average processing time</p>
+        </CardHeader>
+        <CardContent>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart
+                data={mockData.checkInTrends}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                <XAxis 
+                  dataKey="time" 
+                  axisLine={false} 
+                  tickLine={false} 
+                  fontSize={12}
+                />
+                <YAxis
+                  yAxisId="left"
+                  axisLine={false}
+                  tickLine={false}
+                  fontSize={12}
+                />
+                <YAxis
+                  yAxisId="right"
+                  orientation="right"
+                  axisLine={false}
+                  tickLine={false}
+                  fontSize={12}
+                />
+                <Tooltip />
+                <Area
+                  yAxisId="left"
+                  type="monotone"
+                  dataKey="checkIns"
+                  stroke="#8056FF"
+                  fill="#8056FF"
+                  fillOpacity={0.3}
+                  name="Check-ins"
+                />
+                <Line
+                  yAxisId="right"
+                  type="monotone"
+                  dataKey="avgTime"
+                  stroke="#00CC66"
+                  strokeWidth={2}
+                  dot={{ fill: "#00CC66", strokeWidth: 2, r: 4 }}
+                  name="Avg Time (min)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="flex justify-center gap-6 mt-4 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-primary/60 rounded"></div>
+              <span className="text-gray-600">Check-ins</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-secondary rounded"></div>
+              <span className="text-gray-600">Processing Time (min)</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Reservations Table */}
       <Card className="bg-white border-none shadow-soft">
