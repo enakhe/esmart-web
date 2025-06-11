@@ -50,10 +50,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
-    return `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+    return `flex items-center gap-4 px-6 py-4 rounded-lg transition-colors text-white ${
       isActive 
-        ? "bg-primary text-white" 
-        : "text-gray-200 hover:bg-primary/20 hover:text-white"
+        ? "bg-primary text-white font-medium" 
+        : "hover:bg-primary/20 hover:text-white"
     }`;
   };
 
@@ -69,11 +69,11 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       <SidebarComponent
         className={`bg-hotel-primary fixed top-0 left-0 z-50 h-full transition-all duration-300 shadow-lg 
-          ${collapsed ? "w-[70px]" : "w-[240px]"}
+          ${collapsed ? "w-[70px]" : "w-[260px]"}
           ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
         collapsible="icon"
       >
-        <div className="flex items-center justify-between px-4 py-5">
+        <div className="flex items-center justify-between px-6 py-6">
           {!collapsed && (
             <div className="flex items-center">
               <Logo className="text-white" variant="light" />
@@ -82,33 +82,33 @@ const Sidebar: React.FC<SidebarProps> = ({
           <SidebarTrigger className="text-white hover:text-gray-200" />
         </div>
 
-        <SidebarContent className="px-2">
+        <SidebarContent className="px-3">
           <SidebarMenu>
             {navItems.map((item) => (
               <SidebarMenuItem key={item.path}>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild size="lg">
                   <NavLink 
                     to={item.path} 
                     className={getNavLinkClass}
                     onClick={() => setMobileSidebarOpen(false)}
                   >
-                    <item.icon size={20} />
-                    {!collapsed && <span>{item.name}</span>}
+                    <item.icon size={22} />
+                    {!collapsed && <span className="text-base font-medium">{item.name}</span>}
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
 
-            <div className="mt-auto pt-6">
+            <div className="mt-auto pt-8">
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild size="lg">
                   <button 
                     onClick={logout}
-                    className="flex items-center gap-3 w-full px-4 py-3 text-gray-200 
+                    className="flex items-center gap-4 w-full px-6 py-4 text-white 
                       hover:bg-primary/20 hover:text-white rounded-lg transition-colors"
                   >
-                    <LogOut size={20} />
-                    {!collapsed && <span>Logout</span>}
+                    <LogOut size={22} />
+                    {!collapsed && <span className="text-base font-medium">Logout</span>}
                   </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
