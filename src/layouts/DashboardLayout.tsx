@@ -23,8 +23,10 @@ const DashboardLayout: React.FC = () => {
             setMobileSidebarOpen={setMobileSidebarOpen}
           />
           
-          <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
-            <Outlet />
+          <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full">
+            <div className="max-w-7xl mx-auto w-full">
+              <Outlet />
+            </div>
           </main>
         </div>
       </div>
