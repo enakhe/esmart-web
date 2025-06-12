@@ -18,13 +18,13 @@ const DashboardLayout: React.FC = () => {
         />
         
         {/* Main Content */}
-        <div className="flex-1 flex flex-col min-h-screen lg:ml-[280px] transition-all duration-300">
+        <div className="flex-1 flex flex-col min-h-screen transition-all duration-300">
           <Header 
             setMobileSidebarOpen={setMobileSidebarOpen}
           />
           
-          <main className="flex-1 p-4 sm:p-6 lg:p-8">
-            <div className="w-full max-w-none">
+          <main className="flex-1 p-4 sm:p-6 lg:p-8 flex justify-center">
+            <div className="w-full max-w-7xl">
               <Outlet />
             </div>
           </main>
