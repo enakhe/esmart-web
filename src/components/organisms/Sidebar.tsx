@@ -11,7 +11,8 @@ import {
   Key, 
   Settings, 
   LogOut,
-  ChevronDown
+  ChevronDown,
+  ChevronRight
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/components/atoms/Logo";
@@ -75,10 +76,18 @@ const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
-    return `flex items-center gap-4 px-6 py-4 rounded-lg transition-colors text-white ${
+    return `group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-white/80 relative overflow-hidden ${
       isActive 
-        ? "bg-white/20 text-white font-medium" 
-        : "hover:bg-white/10 hover:text-white"
+        ? "bg-white/15 text-white font-medium shadow-lg backdrop-blur-sm border border-white/20" 
+        : "hover:bg-white/10 hover:text-white hover:translate-x-1 hover:shadow-md"
+    }`;
+  };
+
+  const getMenuButtonClass = (isActive = false) => {
+    return `group flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all duration-300 text-white/80 relative overflow-hidden ${
+      isActive 
+        ? "bg-white/15 text-white font-medium shadow-lg backdrop-blur-sm border border-white/20" 
+        : "hover:bg-white/10 hover:text-white hover:translate-x-1 hover:shadow-md"
     }`;
   };
 
@@ -87,38 +96,46 @@ const Sidebar: React.FC<SidebarProps> = ({
       {/* Mobile backdrop */}
       {mobileSidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
           onClick={() => setMobileSidebarOpen(false)}
         />
       )}
 
       <SidebarComponent
-        className={`bg-primary fixed top-0 left-0 z-50 h-full transition-all duration-300 shadow-lg 
-          ${collapsed ? "w-[70px]" : "w-[260px]"}
+        className={`bg-gradient-to-b from-primary via-primary to-primary/90 fixed top-0 left-0 z-50 h-full transition-all duration-300 shadow-2xl border-r border-white/10
+          ${collapsed ? "w-[70px]" : "w-[280px]"}
           ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
         collapsible="icon"
       >
-        <div className="flex items-center justify-between px-6 py-6">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-6 border-b border-white/10">
           {!collapsed && (
             <div className="flex items-center">
               <Logo className="text-white" variant="light" />
             </div>
           )}
-          <SidebarTrigger className="text-white hover:text-gray-200" />
+          <SidebarTrigger className="text-white/80 hover:text-white hover:bg-white/10 rounded-lg p-2 transition-all duration-200" />
         </div>
 
-        <SidebarContent className="px-3">
-          <SidebarMenu>
+        <SidebarContent className="px-4 py-6 space-y-2">
+          <SidebarMenu className="space-y-2">
+            {/* Navigation Items */}
             {navItems.map((item) => (
               <SidebarMenuItem key={item.path}>
-                <SidebarMenuButton asChild size="lg">
+                <SidebarMenuButton asChild size="lg" className="p-0">
                   <NavLink 
                     to={item.path} 
                     className={getNavLinkClass}
                     onClick={() => setMobileSidebarOpen(false)}
                   >
-                    <item.icon size={22} />
-                    {!collapsed && <span className="text-base font-medium">{item.name}</span>}
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <item.icon size={20} className="relative z-10 group-hover:scale-110 transition-transform duration-200" />
+                    {!collapsed && (
+                      <span className="relative z-10 text-sm font-medium tracking-wide">{item.name}</span>
+                    )}
+                    {!collapsed && (
+                      <ChevronRight size={16} className="relative z-10 ml-auto opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-200" />
+                    )}
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -128,47 +145,58 @@ const Sidebar: React.FC<SidebarProps> = ({
             <SidebarMenuItem>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton size="lg" className="flex items-center gap-4 px-6 py-4 rounded-lg transition-colors text-white hover:bg-white/10 hover:text-white w-full justify-start">
-                    <FileText size={22} />
-                    {!collapsed && (
-                      <>
-                        <span className="text-base font-medium">Reports</span>
-                        <ChevronDown size={16} className="ml-auto" />
-                      </>
-                    )}
+                  <SidebarMenuButton size="lg" className={`${getMenuButtonClass()} p-0`}>
+                    <div className="flex items-center gap-3 w-full px-4 py-3">
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <FileText size={20} className="relative z-10 group-hover:scale-110 transition-transform duration-200" />
+                      {!collapsed && (
+                        <>
+                          <span className="relative z-10 text-sm font-medium tracking-wide">Reports</span>
+                          <ChevronDown size={16} className="relative z-10 ml-auto group-hover:rotate-180 transition-transform duration-200" />
+                        </>
+                      )}
+                    </div>
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   side="right" 
                   align="start" 
-                  className="w-64 bg-white border border-gray-200 shadow-lg z-50"
+                  className="w-72 bg-white/95 backdrop-blur-lg border border-gray-200/50 shadow-2xl z-50 rounded-xl"
                 >
-                  {reportItems.map((report, index) => (
-                    <DropdownMenuItem 
-                      key={index}
-                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => {
-                        console.log(`Generating ${report}`);
-                        setMobileSidebarOpen(false);
-                      }}
-                    >
-                      {report}
-                    </DropdownMenuItem>
-                  ))}
+                  <div className="p-2">
+                    {reportItems.map((report, index) => (
+                      <DropdownMenuItem 
+                        key={index}
+                        className="px-4 py-3 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary cursor-pointer rounded-lg transition-all duration-200 font-medium"
+                        onClick={() => {
+                          console.log(`Generating ${report}`);
+                          setMobileSidebarOpen(false);
+                        }}
+                      >
+                        {report}
+                      </DropdownMenuItem>
+                    ))}
+                  </div>
                 </DropdownMenuContent>
               </DropdownMenu>
             </SidebarMenuItem>
 
-            <div className="mt-auto pt-8">
+            {/* Logout Button */}
+            <div className="pt-8 border-t border-white/10 mt-8">
               <SidebarMenuItem>
-                <SidebarMenuButton asChild size="lg">
+                <SidebarMenuButton asChild size="lg" className="p-0">
                   <button 
                     onClick={logout}
-                    className="flex items-center gap-4 w-full px-6 py-4 text-white 
-                      hover:bg-white/10 hover:text-white rounded-lg transition-colors"
+                    className={getMenuButtonClass()}
                   >
-                    <LogOut size={22} />
-                    {!collapsed && <span className="text-base font-medium">Logout</span>}
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <LogOut size={20} className="relative z-10 group-hover:scale-110 transition-transform duration-200" />
+                    {!collapsed && (
+                      <span className="relative z-10 text-sm font-medium tracking-wide">Logout</span>
+                    )}
+                    {!collapsed && (
+                      <ChevronRight size={16} className="relative z-10 ml-auto opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-200" />
+                    )}
                   </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
