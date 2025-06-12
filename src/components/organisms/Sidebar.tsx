@@ -102,13 +102,13 @@ const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       <SidebarComponent
-        className={`bg-gradient-to-b from-primary via-primary to-primary/90 fixed top-0 left-0 z-50 h-full transition-all duration-300 shadow-2xl border-r border-white/10
+        className={`bg-gradient-to-b from-primary via-primary to-primary/90 fixed top-0 left-0 z-50 h-full transition-all duration-300 shadow-2xl
           ${collapsed ? "w-[70px]" : "w-[280px]"}
           ${mobileSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
         collapsible="icon"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-6 border-b border-white/10">
+        <div className="flex items-center justify-between px-6 py-6">
           {!collapsed && (
             <div className="flex items-center">
               <Logo className="text-white" variant="light" />
