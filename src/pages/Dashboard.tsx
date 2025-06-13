@@ -10,7 +10,11 @@ import {
   ChevronRight,
   DollarSign,
   TrendingUp,
-  Clock
+  Clock,
+  UserPlus,
+  UserMinus,
+  BedDouble,
+  CalendarCheck
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
@@ -148,9 +152,10 @@ const Dashboard: React.FC = () => {
       {/* Metrics Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-6">
         {/* Arrivals */}
-        <Card className="bg-white border-none shadow-soft hover:shadow-md transition-shadow duration-200">
+        <Card className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">
+            <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+              <UserPlus className="w-4 h-4 text-green-600" />
               Arrivals
               <span className="block text-xs font-normal mt-1">This week</span>
             </CardTitle>
@@ -168,9 +173,10 @@ const Dashboard: React.FC = () => {
         </Card>
 
         {/* Departures */}
-        <Card className="bg-white border-none shadow-soft hover:shadow-md transition-shadow duration-200">
+        <Card className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">
+            <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
+              <UserMinus className="w-4 h-4 text-orange-600" />
               Departures
               <span className="block text-xs font-normal mt-1">This week</span>
             </CardTitle>
@@ -188,11 +194,14 @@ const Dashboard: React.FC = () => {
         </Card>
 
         {/* Rooms Occupied */}
-        <Card className="bg-gradient-to-br from-primary to-primary/90 text-white border-none shadow-soft hover:shadow-md transition-shadow duration-200 col-span-1 sm:col-span-2 lg:col-span-1">
+        <Card className="bg-gradient-to-br from-primary to-primary/90 text-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200 col-span-1 sm:col-span-2 lg:col-span-1">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80">
               <div className="flex justify-between items-center">
-                <span>Rooms Occupied</span>
+                <span className="flex items-center gap-2">
+                  <BedDouble className="w-4 h-4" />
+                  Rooms Occupied
+                </span>
                 <span className="text-xl sm:text-2xl">60%</span>
               </div>
             </CardTitle>
@@ -203,9 +212,10 @@ const Dashboard: React.FC = () => {
         </Card>
 
         {/* Today's Activities */}
-        <Card className="bg-white border-none shadow-soft hover:shadow-md transition-shadow duration-200 col-span-1 sm:col-span-2 lg:col-span-1 row-span-1 lg:row-span-2">
+        <Card className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200 col-span-1 sm:col-span-2 lg:col-span-1 row-span-1 lg:row-span-2">
           <CardHeader>
-            <CardTitle className="text-base sm:text-lg font-medium text-gray-800">
+            <CardTitle className="text-base sm:text-lg font-medium text-gray-800 flex items-center gap-2">
+              <CalendarCheck className="w-5 h-5 text-primary" />
               Today's Activities
             </CardTitle>
           </CardHeader>
@@ -275,10 +285,10 @@ const Dashboard: React.FC = () => {
         </Card>
 
         {/* In-house Guests */}
-        <Card className="bg-white border-none shadow-soft hover:shadow-md transition-shadow duration-200">
+        <Card className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
-              <Users className="w-4 h-4" />
+              <Users className="w-4 h-4 text-blue-600" />
               In-house Guests
             </CardTitle>
           </CardHeader>
@@ -291,10 +301,10 @@ const Dashboard: React.FC = () => {
         </Card>
 
         {/* Revenue Today */}
-        <Card className="bg-white border-none shadow-soft hover:shadow-md transition-shadow duration-200">
+        <Card className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
-              <DollarSign className="w-4 h-4" />
+              <DollarSign className="w-4 h-4 text-green-600" />
               Revenue Today
             </CardTitle>
           </CardHeader>
@@ -307,10 +317,10 @@ const Dashboard: React.FC = () => {
         </Card>
 
         {/* Average Stay Length */}
-        <Card className="bg-white border-none shadow-soft hover:shadow-md transition-shadow duration-200">
+        <Card className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-500 flex items-center gap-2">
-              <Clock className="w-4 h-4" />
+              <Clock className="w-4 h-4 text-purple-600" />
               Avg Stay Length
             </CardTitle>
           </CardHeader>
@@ -324,7 +334,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Check-in Trends Chart */}
-      <Card className="bg-white border-none shadow-soft hover:shadow-md transition-shadow duration-200">
+      <Card className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200">
         <CardHeader>
           <CardTitle className="text-base sm:text-lg font-medium text-gray-800 flex items-center gap-2">
             <TrendingUp className="w-5 h-5" />
@@ -395,7 +405,7 @@ const Dashboard: React.FC = () => {
       </Card>
 
       {/* Reservations Table */}
-      <Card className="bg-white border-none shadow-soft hover:shadow-md transition-shadow duration-200">
+      <Card className="bg-white border-none shadow-lg hover:shadow-xl transition-shadow duration-200">
         <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 gap-4">
           <CardTitle className="text-base sm:text-lg font-medium text-gray-800">
             Reservations

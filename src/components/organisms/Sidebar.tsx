@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return `group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-white/80 relative overflow-hidden ${
       isActive 
-        ? "bg-white/15 text-white font-medium shadow-lg backdrop-blur-sm border border-white/20" 
+        ? "bg-white/15 text-white font-medium shadow-lg backdrop-blur-sm" 
         : "hover:bg-white/10 hover:text-white hover:translate-x-1 hover:shadow-md"
     }`;
   };
@@ -86,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const getMenuButtonClass = (isActive = false) => {
     return `group flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all duration-300 text-white/80 relative overflow-hidden ${
       isActive 
-        ? "bg-white/15 text-white font-medium shadow-lg backdrop-blur-sm border border-white/20" 
+        ? "bg-white/15 text-white font-medium shadow-lg backdrop-blur-sm" 
         : "hover:bg-white/10 hover:text-white hover:translate-x-1 hover:shadow-md"
     }`;
   };
