@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Building, Eye, EyeOff } from "lucide-react";
 
 // Room status enum and colors
-enum RoomStatus {
+enum RoomStatusType {
   Vacant = "Vacant",
   Maintenance = "Maintenance", 
   Booked = "Booked",
@@ -16,21 +16,21 @@ enum RoomStatus {
   Credit = "Credit"
 }
 
-const getStatusColor = (status: RoomStatus): string => {
+const getStatusColor = (status: RoomStatusType): string => {
   switch (status) {
-    case RoomStatus.Vacant:
+    case RoomStatusType.Vacant:
       return "#00C853";
-    case RoomStatus.Maintenance:
+    case RoomStatusType.Maintenance:
       return "#000000";
-    case RoomStatus.Booked:
+    case RoomStatusType.Booked:
       return "#1a237e";
-    case RoomStatus.Reserved:
+    case RoomStatusType.Reserved:
       return "#fbbc04";
-    case RoomStatus.Dirty:
+    case RoomStatusType.Dirty:
       return "#FF7500";
-    case RoomStatus.Debit:
+    case RoomStatusType.Debit:
       return "#FF0000";
-    case RoomStatus.Credit:
+    case RoomStatusType.Credit:
       return "#E9F0F7";
     default:
       return "#D3D3D3";
@@ -40,7 +40,7 @@ const getStatusColor = (status: RoomStatus): string => {
 interface Room {
   number: string;
   type: string;
-  status: RoomStatus;
+  status: RoomStatusType;
   price: number;
   building: string;
   floor: number;
@@ -55,18 +55,18 @@ interface FilterOptions {
 
 // Mock room data
 const mockRooms: Room[] = [
-  { number: "101", type: "Standard", status: RoomStatus.Vacant, price: 120, building: "A", floor: 1 },
-  { number: "102", type: "Deluxe", status: RoomStatus.Booked, price: 180, building: "A", floor: 1 },
-  { number: "103", type: "Standard", status: RoomStatus.Dirty, price: 120, building: "A", floor: 1 },
-  { number: "104", type: "Suite", status: RoomStatus.Reserved, price: 250, building: "A", floor: 1 },
-  { number: "201", type: "Standard", status: RoomStatus.Maintenance, price: 120, building: "A", floor: 2 },
-  { number: "202", type: "Deluxe", status: RoomStatus.Vacant, price: 180, building: "A", floor: 2 },
-  { number: "203", type: "Standard", status: RoomStatus.Booked, price: 120, building: "A", floor: 2 },
-  { number: "204", type: "Suite", status: RoomStatus.Credit, price: 250, building: "A", floor: 2 },
-  { number: "301", type: "Deluxe", status: RoomStatus.Debit, price: 180, building: "B", floor: 1 },
-  { number: "302", type: "Standard", status: RoomStatus.Vacant, price: 120, building: "B", floor: 1 },
-  { number: "303", type: "Suite", status: RoomStatus.Reserved, price: 250, building: "B", floor: 1 },
-  { number: "304", type: "Deluxe", status: RoomStatus.Dirty, price: 180, building: "B", floor: 1 },
+  { number: "101", type: "Standard", status: RoomStatusType.Vacant, price: 120, building: "A", floor: 1 },
+  { number: "102", type: "Deluxe", status: RoomStatusType.Booked, price: 180, building: "A", floor: 1 },
+  { number: "103", type: "Standard", status: RoomStatusType.Dirty, price: 120, building: "A", floor: 1 },
+  { number: "104", type: "Suite", status: RoomStatusType.Reserved, price: 250, building: "A", floor: 1 },
+  { number: "201", type: "Standard", status: RoomStatusType.Maintenance, price: 120, building: "A", floor: 2 },
+  { number: "202", type: "Deluxe", status: RoomStatusType.Vacant, price: 180, building: "A", floor: 2 },
+  { number: "203", type: "Standard", status: RoomStatusType.Booked, price: 120, building: "A", floor: 2 },
+  { number: "204", type: "Suite", status: RoomStatusType.Credit, price: 250, building: "A", floor: 2 },
+  { number: "301", type: "Deluxe", status: RoomStatusType.Debit, price: 180, building: "B", floor: 1 },
+  { number: "302", type: "Standard", status: RoomStatusType.Vacant, price: 120, building: "B", floor: 1 },
+  { number: "303", type: "Suite", status: RoomStatusType.Reserved, price: 250, building: "B", floor: 1 },
+  { number: "304", type: "Deluxe", status: RoomStatusType.Dirty, price: 180, building: "B", floor: 1 },
 ];
 
 const RoomStatus: React.FC = () => {
@@ -96,7 +96,7 @@ const RoomStatus: React.FC = () => {
     return acc;
   }, {} as Record<string, Record<string, Room[]>>);
 
-  const statusLegend = Object.values(RoomStatus).map(status => ({
+  const statusLegend = Object.values(RoomStatusType).map(status => ({
     status,
     color: getStatusColor(status)
   }));
@@ -164,7 +164,7 @@ const RoomStatus: React.FC = () => {
                         className="relative p-3 rounded-lg border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 min-h-[80px] flex flex-col justify-center items-center text-center"
                         style={{ 
                           backgroundColor: getStatusColor(room.status),
-                          color: room.status === RoomStatus.Credit ? '#000' : '#fff'
+                          color: room.status === RoomStatusType.Credit ? '#000' : '#fff'
                         }}
                       >
                         {filters.number && (
