@@ -7,16 +7,21 @@ import Login from "./Login";
 
 // This component redirects to login or dashboard based on authentication status
 const Index: React.FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoading) {
-      if (isAuthenticated) {
-        navigate(AppRoutes.DASHBOARD);
+      if (isAuthenticated && user) {
+        // Redirect based on user role
+        if (user.role === "Administrator") {
+          navigate("/admin");
+        } else {
+          navigate(AppRoutes.DASHBOARD);
+        }
       }
     }
-  }, [isAuthenticated, isLoading, navigate]);
+  }, [isAuthenticated, isLoading, navigate, user]);
 
   // If still loading, show a simple loading screen
   if (isLoading) {

@@ -4,6 +4,7 @@ import { toast } from "@/components/ui/sonner";
 interface LoginCredentials {
 	email: string;
 	password: string;
+	role: string;
 }
 
 interface LoginResponse {
@@ -32,7 +33,7 @@ export const authService = {
 				id: "user-1",
 				name: "John Doe",
 				email: credentials.email,
-				role: "Administrator",
+				role: credentials.role, // Use the selected role
 			};
 
 			// Store in localStorage - in real app you'd use more secure methods

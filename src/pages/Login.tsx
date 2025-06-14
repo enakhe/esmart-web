@@ -36,11 +36,17 @@ const Login: React.FC = () => {
 		setIsLoading(true);
 
 		try {
-			const success = await login(email, password);
+			const success = await login(email, password, selectedRole);
 
 			if (success) {
 				toast.success(`Welcome to HotelMS! Logged in as ${selectedRole}`);
-				navigate(AppRoutes.DASHBOARD);
+				
+				// Redirect based on role
+				if (selectedRole === "Administrator") {
+					navigate("/admin");
+				} else {
+					navigate(AppRoutes.DASHBOARD);
+				}
 			}
 		} catch (error) {
 			toast.error("Invalid email or password");

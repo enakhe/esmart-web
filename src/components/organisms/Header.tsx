@@ -28,8 +28,15 @@ const Header: React.FC<HeaderProps> = ({ setMobileSidebarOpen }) => {
           <Menu size={24} />
         </button>
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-gray-800 tracking-tight">Dashboard</h1>
-          <p className="text-sm text-gray-500 hidden sm:block">Welcome back, manage your hotel operations</p>
+          <h1 className="text-xl sm:text-2xl font-semibold text-gray-800 tracking-tight">
+            {user?.role === "Administrator" ? "Administrator Dashboard" : "Dashboard"}
+          </h1>
+          <p className="text-sm text-gray-500 hidden sm:block">
+            {user?.role === "Administrator" 
+              ? "Manage your hotel system and operations" 
+              : "Welcome back, manage your hotel operations"
+            }
+          </p>
         </div>
       </div>
 
@@ -50,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({ setMobileSidebarOpen }) => {
             </div>
             <div className="hidden md:block text-sm text-left">
               <p className="font-medium text-gray-800">{user?.name || "User"}</p>
-              <p className="text-xs text-gray-500">Receptionist</p>
+              <p className="text-xs text-gray-500">{user?.role || "User"}</p>
             </div>
             <ChevronDown size={16} className="text-gray-400 hidden sm:block" />
           </DropdownMenuTrigger>
