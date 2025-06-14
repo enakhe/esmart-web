@@ -1,4 +1,3 @@
-
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { 
@@ -12,7 +11,8 @@ import {
   Settings, 
   LogOut,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Shield
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import Logo from "@/components/atoms/Logo";
@@ -48,6 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: Home },
+    { name: "Admin Panel", path: "/admin", icon: Shield },
     { name: "Guests", path: "/guests", icon: Users },
     { name: "Reservations", path: "/reservations", icon: CalendarDays },
     { name: "Rooms", path: "/rooms", icon: Bed },

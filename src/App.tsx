@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import Guests from "./pages/Guests";
 import { Suspense, lazy } from "react";
 
@@ -44,6 +45,7 @@ const App = () => (
             {/* Dashboard Layout with nested routes */}
             <Route path="/" element={<DashboardLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/guests" element={<Guests />} />
               
               {/* Lazy loaded routes */}
